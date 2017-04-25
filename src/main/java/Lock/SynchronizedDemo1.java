@@ -1,4 +1,4 @@
-package Lock.Dead;
+package Lock;
 
 /**
  * Created by zhougaolei on 2017/4/21.

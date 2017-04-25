@@ -1,4 +1,4 @@
-package Lock.Dead;
+package Lock;
 
 /**
  * Copyright (c) 2017 zhougaolei
