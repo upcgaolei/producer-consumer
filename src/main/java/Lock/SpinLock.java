@@ -11,15 +11,23 @@ import java.util.concurrent.atomic.AtomicReference;
 class SpinLock {
     private AtomicReference<Thread> owner = new AtomicReference<>();
 
+    /**
+     * 获得锁(不可重入)
+     */
     public void lock() {
         Thread current = Thread.currentThread();
-        while (!owner.compareAndSet(null, current)) {}
-        System.out.println(current.getId());
+        while (!owner.compareAndSet(null, current)) {
+            System.out.println("抢占CPU : " + Thread.currentThread().getId() + ":" + Thread.currentThread().getName());
+        }
+        System.out.println("获得锁 : " + Thread.currentThread().getId() + ":" + Thread.currentThread().getName());
     }
 
+    /**
+     * 释放锁
+     */
     public void unlock() {
         Thread current = Thread.currentThread();
-        System.out.println(current.getId());
         owner.compareAndSet(current, null);
+        System.out.println("释放锁 : " + Thread.currentThread().getId() + ":" + Thread.currentThread().getName());
     }
 }

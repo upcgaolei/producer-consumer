@@ -1,7 +1,5 @@
 package Lock;
 
-import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -11,8 +9,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * Desc: 可重入的自旋锁
  */
 public class UpgradeSpinLock {
-
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(UpgradeSpinLock.class);
 
     private AtomicReference<Thread> owner = new AtomicReference<>();
 
