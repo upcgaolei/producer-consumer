@@ -1,8 +1,7 @@
 package thread;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
+import java.util.Stack;
+import java.util.concurrent.*;
 
 /**
  * Created by 周高磊
@@ -13,24 +12,29 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreTest {
     private static final int THREAD_COUNT = 20;
 
-    private Executor executor = Executors.newFixedThreadPool(THREAD_COUNT);
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
 
-    private Semaphore semaphore = new Semaphore(10);
+    private static Semaphore semaphore = new Semaphore(10);
 
-    public void count() {
+    public static void main(String[] args) {
         for(int i = 0; i < THREAD_COUNT; i ++) {
-            executor.execute(new Runnable() {
+            threadPool.execute(new Runnable() {
                 @Override
                 public void run() {
-                    semaphore.acquire();
-                    System.out.println("1");
-                    semaphore.release();
+                    try {
+                        System.out.println("当前线程 : " + Thread.currentThread().getName());
+                        System.out.println("剩余可用信号量 : " + semaphore.availablePermits());
+                        System.out.println("是否有线程队列等待 : " + semaphore.hasQueuedThreads());
+                        semaphore.acquire();
+                        System.out.println("save data");
+                        semaphore.release();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             });
         }
-    }
-
-    public static void main(String[] args) {
-
+        threadPool.shutdown();
     }
 }
