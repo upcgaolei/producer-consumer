@@ -1,4 +1,4 @@
-package Lock;
+package lock;
 
 /**
  * Created by zgl

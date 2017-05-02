@@ -1,4 +1,4 @@
-package Lock;
+package lock;
 
 /**
  * Created by zhougaolei on 2017/4/21.
